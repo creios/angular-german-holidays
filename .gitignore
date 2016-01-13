@@ -1,0 +1,11 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Yeoman template
+node_modules/
+bower_components/
+*.log
+
+build/
+dist/
+
+/.idea
+

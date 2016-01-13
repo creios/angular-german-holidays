@@ -1,0 +1,26 @@
+{
+  "name": "angular-german-holidays",
+  "authors": [
+    "Jonas Schürmann <schuermann@creios.net>"
+  ],
+  "description": "",
+  "main": "src/german-holidays.js",
+  "moduleType": [],
+  "keywords": [
+    "angular",
+    "holiday",
+    "germany"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8"
+  }
+}
