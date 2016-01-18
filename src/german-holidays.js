@@ -22,52 +22,62 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
         return new Date(y, n - 1, p);
     }
 
-    function bubeCaluclation(date) {
-        // calculates the "Buß- und Bettag"
-        var nov23 = new Date(date.getFullYear(), 10, 23);
-        nov23.setDate(nov23.getDate() - 1);
-        while (true) {
-            if (nov23.getDay() == 3) {
-                return nov23;
-            } else {
-                nov23.setDate(nov23.getDate() - 1);
-            }
-        }
-    }
-
-    function holidayCheck(date, state) {
-        function checkIndividual(holidate, states, holiday) {
-            //checks if the passed date equals the the holiday. If true: check if it is a state-specific holiday
-            if (date.valueOf() == holidate.valueOf() && ((states != false) ? ((states.indexOf(state) != -1)) : true)) {
-                return holiday;
-            }
-        }
+    function holidayCheck(date) {
 
         var easter = easterCalculation(date.getFullYear());
-        var holidayparams = [
-            [new Date(date.getFullYear(), 0, 1), [], "Neujahrstag"],
-            [new Date(date.getFullYear(), 0, 6), ["BW", "BY", "ST"], "Heilige Drei Könige"],
-            [easter - 2, [], "Karfreitag"],
-            [easter, ["BB"], "Ostersonntag"],
-            [easter + 1, [], "Ostermontag"],
-            [new Date(date.getFullYear(), 4, 1), [], "Tag der Arbeit"],
-            [easter + 39, [], "Christi Himmelfahrt"],
-            [easter + 49, ["BB"], "Pfingstsonntag"],
-            [easter + 50, [], "Pfingstmontag"],
-            [easter + 60, ["BW", "BY", "HE", "NW", "RP", "SL"], "Fronleichnam"],
-            [new Date(date.getFullYear(), 9, 3), [], "Tag der deutschen Einheit"],
-            [new Date(date.getFullYear(), 9, 31), ["BB", "MV", "SN", "ST", "TH"], "Reformationstag"],
-            [bubeCaluclation(date), ["SN"], "Buß- und Bettag"],
-            [new Date(date.getFullYear(), 11, 25), [], "1. Weihnachtstag"],
-            [new Date(date.getFullYear(), 11, 26), [], "2. Weihnachtstag"]
+        var holidays = [
+            {
+                name: 'Neujahrstag',
+                date: new Date(date.getFullYear(), 0, 1)
+            },
+            {
+                name: 'Karfreitag',
+                date: new Date(easter.valueOf()).setDate(easter.getDate() - 2)
+            },
+            {
+                name: 'Ostermontag',
+                date: new Date(easter.valueOf()).setDate(easter.getDate() + 1)
+            },
+            {
+                name: 'Tag der Arbeit',
+                date: new Date(date.getFullYear(), 4, 1)
+            },
+            {
+                name: 'Christi Himmelfahrt',
+                date: new Date(easter.valueOf()).setDate(easter.getDate() + 39)
+            },
+            {
+                name: 'Pfingsmontag',
+                date: new Date(easter.valueOf()).setDate(easter.getDate() + 50)
+            },
+            {
+                name: 'Fronleichnam',
+                date: new Date(easter.valueOf()).setDate(easter.getDate() + 60)
+            },
+            {
+                name: 'Tag der deutschen Einheit',
+                date: new Date(date.getFullYear(), 9, 3)
+            },
+            {
+                name: 'Allerheiligen',
+                date: new Date(date.getFullYear(), 10, 1)
+            },
+            {
+                name: '1. Weihnachtstag',
+                date: new Date(date.getFullYear(), 11, 25)
+            },
+            {
+                name: '2. Weihnachtstag',
+                date: new Date(date.getFullYear(), 11, 26)
+            }
         ];
 
-        for (var i = 0; i < holidayparams.length; i++) {
-            var check = checkIndividual(holidayparams[i][0], holidayparams[i][1], holidayparams[i][2], holidayparams[i][3]);
-            if (check) {
-                return check;
+        for (var i = 0; i < holidays.length; i++) {
+            if (holidays[i].date.valueOf() == date.valueOf()) {
+                return holidays[i].name;
             }
         }
+
         return false;
     }
 

@@ -2,8 +2,6 @@
 
 AngularJS module to calculate german holidays
 
-Ported from [wtfuii/german-holiday](https://github.com/wtfuii/german-holiday)
-
 ## Installation
 
 ```sh
