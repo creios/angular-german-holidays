@@ -63,11 +63,11 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
                 date: new Date(date.getFullYear(), 10, 1)
             },
             {
-                name: '1. Weihnachtstag',
+                name: '1. Weihnachtsfeiertag',
                 date: new Date(date.getFullYear(), 11, 25)
             },
             {
-                name: '2. Weihnachtstag',
+                name: '2. Weihnachtsfeiertag',
                 date: new Date(date.getFullYear(), 11, 26)
             }
         ];
