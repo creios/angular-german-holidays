@@ -1,6 +1,6 @@
 # angular-german-holidays
 
-AngularJS module to calculate german holidays
+AngularJS module to calculate German holidays in North Rhine-Westphalia
 
 ## Installation
 
@@ -19,30 +19,9 @@ $ bower install angular-german-holidays
 
 ```js
 angular.module('myApp', ['german-holidays']).controller('home', function (holidayCheck) {
-    console.log(holidayCheck(new Date(2016, 0, 1), 'NW')); // Neujahrstag
+    console.log(holidayCheck(new Date(2016, 0, 1))); // Neujahrstag
 }
 ```
-
-### State identifier
-
-Identifier  | State
------------ | -----------------------
-BW          | Baden-Württemberg
-BY          | Bayern
-BE          | Berlin
-BB          | Brandenburg
-HB          | Bremen
-HH          | Hamburg
-HE          | Hessen
-MV          | Mecklenburg-Vorpommern
-NI          | Niedersachsen
-NW          | Nordrhein-Westfalen
-RP          | Rheinland-Pfalz
-SL          | Saarland
-SN          | Sachsen
-ST          | Sachsen-Anhalt
-SH          | Schleswig-Holstein
-TH          | Thüringen
 
 ### Return value
 
