@@ -8,3 +8,8 @@ before_script:
 
 script:
   - npm test
+
+cache:
+  directories:
+    - node_modules
+    - bower_components
