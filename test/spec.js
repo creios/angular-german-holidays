@@ -22,6 +22,12 @@ describe("GermanHolidays", function() {
         expect(holidayCheck(new Date(2016, 11, 31))).toBe(false);
     }));
 
+    it("should find the '500. Jahrestag der Reformation' in 2017", inject(function (holidayCheck) {
+        expect(holidayCheck(new Date(2016, 9, 31))).toBe(false);
+        expect(holidayCheck(new Date(2017, 9, 31))).toBe('500. Jahrestag der Reformation');
+        expect(holidayCheck(new Date(2018, 9, 31))).toBe(false);
+    }));
+
     it("should find the correct number of holidays per year", inject(function (holidayCheck) {
         for (var year = 2010; year <= 2020; year++) {
             var day = new Date(year, 0, 1);
@@ -32,7 +38,7 @@ describe("GermanHolidays", function() {
                 }
                 day.setDate(day.getDate() + 1);
             }
-            expect(count).toBe(11);
+            expect(count).toBe(year == 2017 ? 12 : 11);
         }
     }));
 });
