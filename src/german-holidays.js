@@ -22,20 +22,17 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
         return new Date(y, n - 1, p);
     }
 
-    function bubeCaluclation (date) {
-        // calculates the "Buß- und Bettag"
+    function bubeCalculation (date) {
         var nov23 = new Date(date.getFullYear(), 10, 23);
-        nov23.setDate(nov23.getDate() - 1);
-        while (true) {
-            if (nov23.getDay() == 3) {
-                return nov23
-            } else {
-                nov23.setDate(nov23.getDate() - 1)
-            }
-        }
+        var shift = {0: -4, 1: -5, 2: -6, 3: -7, 4: -1, 5: -2, 6: -3};
+        return new Date(nov23.valueOf()).setDate(nov23.getDate() + shift[nov23.getDay()]);
     }
 
     function holidayCheck(date, state) {
+
+        if(state == undefined){
+            state = 'NW'
+        }
 
         var easter = easterCalculation(date.getFullYear());
         var holidays = [
@@ -106,7 +103,7 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
             },
             {
                 name: 'Buß- und Bettag',
-                date: bubeCaluclation(date),
+                date: bubeCalculation(date),
                 states: ['SN']
             },
             {

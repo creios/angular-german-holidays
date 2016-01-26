@@ -1,7 +1,7 @@
 describe("GermanHolidays", function () {
     beforeEach(module('german-holidays'));
 
-    it("should find all holidays in 2016", inject(function (holidayCheck) {
+    it("should find all holidays in 2016 in NW", inject(function (holidayCheck) {
         expect(holidayCheck(new Date(2016, 0, 1), 'NW')).toBe('Neujahrstag');
         expect(holidayCheck(new Date(2016, 2, 25), 'NW')).toBe('Karfreitag');
         expect(holidayCheck(new Date(2016, 2, 28), 'NW')).toBe('Ostermontag');
@@ -13,6 +13,17 @@ describe("GermanHolidays", function () {
         expect(holidayCheck(new Date(2016, 10, 1), 'NW')).toBe('Allerheiligen');
         expect(holidayCheck(new Date(2016, 11, 25), 'NW')).toBe('1. Weihnachtsfeiertag');
         expect(holidayCheck(new Date(2016, 11, 26), 'NW')).toBe('2. Weihnachtsfeiertag');
+    }));
+
+    it("complete round of 'Buß- und Bettag' in SN", inject(function (holidayCheck) {
+        expect(holidayCheck(new Date(2016, 10, 16), 'SN')).toBe('Buß- und Bettag');
+        expect(holidayCheck(new Date(2017, 10, 22), 'SN')).toBe('Buß- und Bettag');
+        expect(holidayCheck(new Date(2018, 10, 21), 'SN')).toBe('Buß- und Bettag');
+        expect(holidayCheck(new Date(2019, 10, 20), 'SN')).toBe('Buß- und Bettag');
+        expect(holidayCheck(new Date(2020, 10, 18), 'SN')).toBe('Buß- und Bettag');
+        expect(holidayCheck(new Date(2021, 10, 17), 'SN')).toBe('Buß- und Bettag');
+        expect(holidayCheck(new Date(2025, 10, 19), 'SN')).toBe('Buß- und Bettag');
+        expect(holidayCheck(new Date(2025, 10, 19))).toBe(false);
     }));
 
     it("should not find holidays on normal days", inject(function (holidayCheck) {
@@ -40,4 +51,5 @@ describe("GermanHolidays", function () {
             expect(count).toBe(year == 2017 ? 12 : 11);
         }
     }));
+
 });
