@@ -26,3 +26,7 @@ angular.module('myApp', ['german-holidays']).controller('home', function (holida
 ### Return value
 
 `holidayCheck()` returns either the name of the holiday or false.
+
+---
+
+Inspired by [wtfuii/german-holiday](https://github.com/wtfuii/german-holiday)
