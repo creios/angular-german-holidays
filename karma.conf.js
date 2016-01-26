@@ -16,13 +16,19 @@ module.exports = function (config) {
             'karma-chrome-launcher',
             'karma-firefox-launcher',
             'karma-phantomjs-launcher',
-            'karma-jasmine'
+            'karma-jasmine',
+            'karma-coverage'
         ],
 
-        junitReporter: {
-            outputFile: 'test_out/unit.xml',
-            suite: 'unit'
-        }
+        reporters: ['coverage'],
 
+        preprocessors: {
+            "src/**/*.js": "coverage"
+        },
+
+        coverageReporter: {
+            type: "lcov",
+            dir: "coverage/"
+        }
     });
 };
