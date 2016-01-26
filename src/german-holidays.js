@@ -35,7 +35,7 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
         }
     }
 
-    function holidayCheck(date) {
+    function holidayCheck(date, state) {
 
         var easter = easterCalculation(date.getFullYear());
         var holidays = [
@@ -76,7 +76,7 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
             },
             {
                 name: 'Pfingstsonntag',
-                date: new Date(easter.valueOf()).setDate(easter.getDate() + 50),
+                date: new Date(easter.valueOf()).setDate(easter.getDate() + 49),
                 states: ['BB']
             },
             {
@@ -127,7 +127,7 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
         ];
 
         for (var i = 0; i < holidays.length; i++) {
-            if (holidays[i].date.valueOf() == date.valueOf()) {
+            if (holidays[i].date.valueOf() == date.valueOf() && holidays[i].states.indexOf(state) >= 0) {
                 return holidays[i].name;
             }
         }
