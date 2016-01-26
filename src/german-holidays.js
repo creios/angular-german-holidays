@@ -69,6 +69,10 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
             {
                 name: '2. Weihnachtsfeiertag',
                 date: new Date(date.getFullYear(), 11, 26)
+            },
+            {
+                name: '500. Jahrestag der Reformation',
+                date: new Date(2017, 9, 31)
             }
         ];
 
