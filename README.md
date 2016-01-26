@@ -1,5 +1,7 @@
 # angular-german-holidays
 
+[![Build Status](https://api.travis-ci.org/creios/angular-german-holidays.svg?branch=master)](https://travis-ci.org/creios/angular-german-holidays)
+
 AngularJS module to calculate German holidays in North Rhine-Westphalia
 
 ## Installation
