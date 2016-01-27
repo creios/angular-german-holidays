@@ -15,6 +15,20 @@ describe("GermanHolidays", function () {
         expect(holidayCheck(new Date(2016, 11, 26), 'NW')).toBe('2. Weihnachtsfeiertag');
     }));
 
+    it("should find all holidays in 2016 in NW using ISO 3166:DE state codes", inject(function (holidayCheck) {
+        expect(holidayCheck(new Date(2016, 0, 1), 'DE-NW')).toBe('Neujahrstag');
+        expect(holidayCheck(new Date(2016, 2, 25), 'DE-NW')).toBe('Karfreitag');
+        expect(holidayCheck(new Date(2016, 2, 28), 'DE-NW')).toBe('Ostermontag');
+        expect(holidayCheck(new Date(2016, 4, 1), 'DE-NW')).toBe('Tag der Arbeit');
+        expect(holidayCheck(new Date(2016, 4, 5), 'DE-NW')).toBe('Christi Himmelfahrt');
+        expect(holidayCheck(new Date(2016, 4, 16), 'DE-NW')).toBe('Pfingstmontag');
+        expect(holidayCheck(new Date(2016, 4, 26), 'DE-NW')).toBe('Fronleichnam');
+        expect(holidayCheck(new Date(2016, 9, 3), 'DE-NW')).toBe('Tag der deutschen Einheit');
+        expect(holidayCheck(new Date(2016, 10, 1), 'DE-NW')).toBe('Allerheiligen');
+        expect(holidayCheck(new Date(2016, 11, 25), 'DE-NW')).toBe('1. Weihnachtsfeiertag');
+        expect(holidayCheck(new Date(2016, 11, 26), 'DE-NW')).toBe('2. Weihnachtsfeiertag');
+    }));
+
     it("complete round of 'Buß- und Bettag' in SN", inject(function (holidayCheck) {
         expect(holidayCheck(new Date(2016, 10, 16), 'SN')).toBe('Buß- und Bettag');
         expect(holidayCheck(new Date(2017, 10, 22), 'SN')).toBe('Buß- und Bettag');
