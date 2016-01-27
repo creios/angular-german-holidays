@@ -40,7 +40,7 @@ Only holidays admitted in the whole state were taken over.
 
 ## States 
 
-Two-letter codes were taken over from [ISO_3166-2:DE)](https://de.wikipedia.org/wiki/ISO_3166-2:DE) (without 'DE-'-suffix):
+Two-letter codes were taken over from [ISO_3166-2:DE](https://de.wikipedia.org/wiki/ISO_3166-2:DE) (without 'DE-'-suffix):
 
 |code | state
 |--- | ---
