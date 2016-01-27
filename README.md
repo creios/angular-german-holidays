@@ -3,7 +3,7 @@
 [![Build Status](https://api.travis-ci.org/creios/angular-german-holidays.svg?branch=master)](https://travis-ci.org/creios/angular-german-holidays)
 [![Coverage Status](https://coveralls.io/repos/github/creios/angular-german-holidays/badge.svg?branch=master)](https://coveralls.io/github/creios/angular-german-holidays?branch=master)
 
-AngularJS module to calculate German holidays in North Rhine-Westphalia
+AngularJS module to calculate German holidays
 
 ## Installation
 
