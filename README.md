@@ -40,26 +40,26 @@ Only holidays admitted in the whole state were taken over.
 
 ## States 
 
-Two-letter codes were taken over from [ISO_3166-2:DE](https://de.wikipedia.org/wiki/ISO_3166-2:DE) (without 'DE-'-suffix):
+Additionally to the two-letter codes listed below, the codes defined in [ISO 3166-2:DE](https://de.wikipedia.org/wiki/ISO_3166-2:DE) (using the 'DE-' prefix) are also allowed:
 
-|code | state
-|--- | ---
-|BW | Baden-Württemberg
-|BY | Bayern
-|BE | Berlin
-|BB | Brandenburg
-|HB | Bremen
-|HH | Hamburg
-|HE | Hessen
-|MV | Mecklenburg-Vorpommern
-|NI | Niedersachsen
-|NW | Nordrhein-Westfalen
-|RP | Rheinland-Pfalz
-|SL | Saarland
-|SN | Sachsen
-|ST | Sachsen-Anhalt
-|SH | Schleswig-Holstein
-|TH | Thüringen
+| code | state                  |
+| ---- | ---------------------- |
+| BW   | Baden-Württemberg      |
+| BY   | Bayern                 |
+| BE   | Berlin                 |
+| BB   | Brandenburg            |
+| HB   | Bremen                 |
+| HH   | Hamburg                |
+| HE   | Hessen                 |
+| MV   | Mecklenburg-Vorpommern |
+| NI   | Niedersachsen          |
+| NW   | Nordrhein-Westfalen    |
+| RP   | Rheinland-Pfalz        |
+| SL   | Saarland               |
+| SN   | Sachsen                |
+| ST   | Sachsen-Anhalt         |
+| SH   | Schleswig-Holstein     |
+| TH   | Thüringen              |
 
 ---
 

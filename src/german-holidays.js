@@ -22,7 +22,7 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
         return new Date(y, n - 1, p);
     }
 
-    function bubeCalculation (date) {
+    function bubeCalculation(date) {
         var nov23 = new Date(date.getFullYear(), 10, 23);
         var shift = {0: -4, 1: -5, 2: -6, 3: -7, 4: -1, 5: -2, 6: -3};
         return new Date(nov23.valueOf()).setDate(nov23.getDate() + shift[nov23.getDay()]);
@@ -30,8 +30,10 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
 
     function holidayCheck(date, state) {
 
-        if(state == undefined){
+        if (typeof state === 'undefined') {
             state = 'NW'
+        } else {
+            state = state.replace('DE-', '');
         }
 
         var easter = easterCalculation(date.getFullYear());
