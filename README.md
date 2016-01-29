@@ -15,7 +15,7 @@ $ bower install angular-german-holidays
 ### Require the javascript file
 
 ```html
-<script src="bower_components/angular-german-holidays/src/german-holidays.js"></script>
+<script src="bower_components/angular-german-holidays/dist/angular-german-holidays.min.js"></script>
 ```
 
 ### Register the angular module
