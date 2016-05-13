@@ -65,5 +65,15 @@ describe("GermanHolidays", function () {
             expect(count).toBe(year == 2017 ? 12 : 11);
         }
     }));
+    
+    it("should get holidays array", inject(function (getHolidays) {
+        var holidays=getHolidays(2016, 'NW');
+        expect(holidays.length).toBe(11);
+        holidays=getHolidays(2017, 'NW');
+        expect(holidays.length).toBe(12);
+        holidays=getHolidays(2015, 'NW');
+        expect(holidays.length).toBe(11);
+        
+    }));
 
 });

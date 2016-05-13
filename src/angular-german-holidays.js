@@ -1,43 +1,37 @@
-angular.module('german-holidays', []).factory('holidayCheck', function () {
-
-    function easterCalculation(y) {
+angular.module('german-holidays', []).factory('holiday', function () {
+    return {
+        easterCalculation:function(y){
         //The date of Easter is computed by an algorithm found in the book of Meeus,
-        //which is valid without exceptions for all years in the Gregorian Calendar
-        //(from the year 1583 on)  Input: Year
-        var a = y % 19;
-        var b = Math.floor(y / 100);
-        var c = y % 100;
-        var d = Math.floor(b / 4);
-        var e = b % 4;
-        var f = Math.floor((b + 8) / 25);
-        var g = Math.floor((b - f + 1) / 3);
-        var h = (19 * a + b - d - g + 15) % 30;
-        var i = Math.floor(c / 4);
-        var k = c % 4;
-        var l = (32 + 2 * e + 2 * i - h - k) % 7;
-        var m = Math.floor((a + 11 * h + 22 * l) / 451);
-        var n = Math.floor((h + l - 7 * m + 114) / 31);
-        var p = (h + l - 7 * m + 114) % 31;
-        p = Math.round(p + 1);
-        return new Date(y, n - 1, p);
-    }
-
-    function bubeCalculation(date) {
-        var nov23 = new Date(date.getFullYear(), 10, 23);
-        var shift = {0: -4, 1: -5, 2: -6, 3: -7, 4: -1, 5: -2, 6: -3};
-        return new Date(nov23.valueOf()).setDate(nov23.getDate() + shift[nov23.getDay()]);
-    }
-
-    function holidayCheck(date, state) {
-
-        if (typeof state === 'undefined') {
-            state = 'NW'
-        } else {
-            state = state.replace('DE-', '');
-        }
-
-        var easter = easterCalculation(date.getFullYear());
-        var holidays = [
+            //which is valid without exceptions for all years in the Gregorian Calendar
+            //(from the year 1583 on)  Input: Year
+            var a = y % 19;
+            var b = Math.floor(y / 100);
+            var c = y % 100;
+            var d = Math.floor(b / 4);
+            var e = b % 4;
+            var f = Math.floor((b + 8) / 25);
+            var g = Math.floor((b - f + 1) / 3);
+            var h = (19 * a + b - d - g + 15) % 30;
+            var i = Math.floor(c / 4);
+            var k = c % 4;
+            var l = (32 + 2 * e + 2 * i - h - k) % 7;
+            var m = Math.floor((a + 11 * h + 22 * l) / 451);
+            var n = Math.floor((h + l - 7 * m + 114) / 31);
+            var p = (h + l - 7 * m + 114) % 31;
+            p = Math.round(p + 1);
+            return new Date(y, n - 1, p);
+        },
+        
+        bubeCalculation:function(date){
+            var nov23 = new Date(date.getFullYear(), 10, 23);
+            var shift = {0: -4, 1: -5, 2: -6, 3: -7, 4: -1, 5: -2, 6: -3};
+            return new Date(nov23.valueOf()).setDate(nov23.getDate() + shift[nov23.getDay()]);  
+        },
+        
+        getHolidays:function(date){
+        
+        var easter = this.easterCalculation(date.getFullYear());
+            return [
             {
                 name: 'Neujahrstag',
                 date: new Date(date.getFullYear(), 0, 1),
@@ -105,7 +99,7 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
             },
             {
                 name: 'Buß- und Bettag',
-                date: bubeCalculation(date),
+                date: this.bubeCalculation(date),
                 states: ['SN']
             },
             {
@@ -123,8 +117,20 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
                 date: new Date(2017, 9, 31),
                 states: ['HE', 'NW', 'SL']
             }
-        ];
+        ]}
+    }
+})
+.factory('holidayCheck', function (holiday) {
+    
+    function holidayCheck(date, state) {
 
+        if (typeof state === 'undefined') {
+            state = 'NW'
+        } else {
+            state = state.replace('DE-', '');
+        }
+        var holidays=holiday.getHolidays(date)
+        
         for (var i = 0; i < holidays.length; i++) {
             if (holidays[i].date.valueOf() == date.valueOf() && holidays[i].states.indexOf(state) >= 0) {
                 return holidays[i].name;
@@ -133,6 +139,27 @@ angular.module('german-holidays', []).factory('holidayCheck', function () {
 
         return false;
     }
-
+    
     return holidayCheck;
+})
+
+.factory('getHolidays', function (holidayCheck, holiday) {
+    function getHolidays(year, state) {
+        if (typeof state === 'undefined') {
+            state = 'NW'
+        } else {
+            state = state.replace('DE-', '');
+        }
+        
+        var allholidays=holiday.getHolidays(new Date(year,0,1))
+        var holidays=[];
+        
+        for (var i = 0; i < allholidays.length; i++) {
+            if (new Date(allholidays[i].date).getFullYear() == year && allholidays[i].states.indexOf(state) >= 0){
+                holidays.push({date:allholidays[i].date,name:allholidays[i].name});
+            }
+        }
+        return holidays;
+    }
+    return getHolidays;
 });
