@@ -1,50 +1,57 @@
-angular.module('german-holidays', []).factory('holiday', function () {
-    return {
-        easterCalculation:function(y){
+angular.module('german-holidays', []).factory('germanHolidays', function () {
+
+    function easterCalculationForYear(y) {
         //The date of Easter is computed by an algorithm found in the book of Meeus,
-            //which is valid without exceptions for all years in the Gregorian Calendar
-            //(from the year 1583 on)  Input: Year
-            var a = y % 19;
-            var b = Math.floor(y / 100);
-            var c = y % 100;
-            var d = Math.floor(b / 4);
-            var e = b % 4;
-            var f = Math.floor((b + 8) / 25);
-            var g = Math.floor((b - f + 1) / 3);
-            var h = (19 * a + b - d - g + 15) % 30;
-            var i = Math.floor(c / 4);
-            var k = c % 4;
-            var l = (32 + 2 * e + 2 * i - h - k) % 7;
-            var m = Math.floor((a + 11 * h + 22 * l) / 451);
-            var n = Math.floor((h + l - 7 * m + 114) / 31);
-            var p = (h + l - 7 * m + 114) % 31;
-            p = Math.round(p + 1);
-            return new Date(y, n - 1, p);
-        },
+        //which is valid without exceptions for all years in the Gregorian Calendar
+        //(from the year 1583 on)  Input: Year
+        var a = y % 19;
+        var b = Math.floor(y / 100);
+        var c = y % 100;
+        var d = Math.floor(b / 4);
+        var e = b % 4;
+        var f = Math.floor((b + 8) / 25);
+        var g = Math.floor((b - f + 1) / 3);
+        var h = (19 * a + b - d - g + 15) % 30;
+        var i = Math.floor(c / 4);
+        var k = c % 4;
+        var l = (32 + 2 * e + 2 * i - h - k) % 7;
+        var m = Math.floor((a + 11 * h + 22 * l) / 451);
+        var n = Math.floor((h + l - 7 * m + 114) / 31);
+        var p = (h + l - 7 * m + 114) % 31;
+        p = Math.round(p + 1);
+        return new Date(y, n - 1, p);
+    }
+
+    function bubeCalculationForYear(year) {
+        var nov23 = new Date(year, 10, 23);
+        var shift = {0: -4, 1: -5, 2: -6, 3: -7, 4: -1, 5: -2, 6: -3};
+        return new Date(nov23.valueOf()).setDate(nov23.getDate() + shift[nov23.getDay()]);
+    }
+
+    function holidayDefinitionsForYear(year) {
+
+        var easter = easterCalculationForYear(year);
         
-        bubeCalculation:function(date){
-            var nov23 = new Date(date.getFullYear(), 10, 23);
-            var shift = {0: -4, 1: -5, 2: -6, 3: -7, 4: -1, 5: -2, 6: -3};
-            return new Date(nov23.valueOf()).setDate(nov23.getDate() + shift[nov23.getDay()]);  
-        },
+        function easterDependentDate(offset) {
+            var date = new Date(easter.valueOf());
+            date.setDate(easter.getDate() + offset);
+            return date;
+        }
         
-        getHolidays:function(date){
-        
-        var easter = this.easterCalculation(date.getFullYear());
-            return [
+        return [
             {
                 name: 'Neujahrstag',
-                date: new Date(date.getFullYear(), 0, 1),
+                date: new Date(year, 0, 1),
                 states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH']
             },
             {
                 name: 'Heilige drei Könige',
-                date: new Date(date.getFullYear(), 0, 6),
+                date: new Date(year, 0, 6),
                 states: ['BW', 'BY', 'ST']
             },
             {
                 name: 'Karfreitag',
-                date: new Date(easter.valueOf()).setDate(easter.getDate() - 2),
+                date: easterDependentDate(-2),
                 states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH']
             },
             {
@@ -54,62 +61,62 @@ angular.module('german-holidays', []).factory('holiday', function () {
             },
             {
                 name: 'Ostermontag',
-                date: new Date(easter.valueOf()).setDate(easter.getDate() + 1),
+                date: easterDependentDate(+1),
                 states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH']
             },
             {
                 name: 'Tag der Arbeit',
-                date: new Date(date.getFullYear(), 4, 1),
+                date: new Date(year, 4, 1),
                 states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH']
             },
             {
                 name: 'Christi Himmelfahrt',
-                date: new Date(easter.valueOf()).setDate(easter.getDate() + 39),
+                date: easterDependentDate(+39),
                 states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH']
             },
             {
                 name: 'Pfingstsonntag',
-                date: new Date(easter.valueOf()).setDate(easter.getDate() + 49),
+                date: easterDependentDate(+49),
                 states: ['BB']
             },
             {
                 name: 'Pfingstmontag',
-                date: new Date(easter.valueOf()).setDate(easter.getDate() + 50),
+                date: easterDependentDate(+50),
                 states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH']
             },
             {
                 name: 'Fronleichnam',
-                date: new Date(easter.valueOf()).setDate(easter.getDate() + 60),
+                date: easterDependentDate(+60),
                 states: ['BW', 'BY', 'HE', 'NW', 'RP', 'SL']
             },
             {
                 name: 'Tag der deutschen Einheit',
-                date: new Date(date.getFullYear(), 9, 3),
+                date: new Date(year, 9, 3),
                 states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH']
             },
             {
                 name: 'Reformationstag',
-                date: new Date(date.getFullYear(), 9, 31),
+                date: new Date(year, 9, 31),
                 states: ['BB', 'MV', 'SN', 'ST', 'TH']
             },
             {
                 name: 'Allerheiligen',
-                date: new Date(date.getFullYear(), 10, 1),
+                date: new Date(year, 10, 1),
                 states: ['BW', 'BY', 'NW', 'RP', 'SL']
             },
             {
                 name: 'Buß- und Bettag',
-                date: this.bubeCalculation(date),
+                date: bubeCalculationForYear(year),
                 states: ['SN']
             },
             {
                 name: '1. Weihnachtsfeiertag',
-                date: new Date(date.getFullYear(), 11, 25),
+                date: new Date(year, 11, 25),
                 states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH']
             },
             {
                 name: '2. Weihnachtsfeiertag',
-                date: new Date(date.getFullYear(), 11, 26),
+                date: new Date(year, 11, 26),
                 states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH']
             },
             {
@@ -117,49 +124,40 @@ angular.module('german-holidays', []).factory('holiday', function () {
                 date: new Date(2017, 9, 31),
                 states: ['HE', 'NW', 'SL']
             }
-        ]}
+        ]
     }
-})
-.factory('holidayCheck', function (holiday) {
-    
-    function holidayCheck(date, state) {
 
-        if (typeof state === 'undefined') {
-            state = 'NW'
-        } else {
+    return {
+        holidayNameForDateAndState: function (date, state) {
             state = state.replace('DE-', '');
-        }
-        var holidays=holiday.getHolidays(date)
-        
-        for (var i = 0; i < holidays.length; i++) {
-            if (holidays[i].date.valueOf() == date.valueOf() && holidays[i].states.indexOf(state) >= 0) {
-                return holidays[i].name;
+            var holidayDefinitions = holidayDefinitionsForYear(date.getFullYear());
+
+            for (var i = 0; i < holidayDefinitions.length; i++) {
+                if (holidayDefinitions[i].date.valueOf() == date.valueOf() && holidayDefinitions[i].states.indexOf(state) >= 0) {
+                    return holidayDefinitions[i].name;
+                }
             }
-        }
 
-        return false;
-    }
-    
-    return holidayCheck;
-})
-
-.factory('getHolidays', function (holidayCheck, holiday) {
-    function getHolidays(year, state) {
-        if (typeof state === 'undefined') {
-            state = 'NW'
-        } else {
+            return null;
+        },
+        isHolidayForDateAndState: function (date, state) {
+            return this.holidayNameForDateAndState(date, state) !== null;
+        },
+        holidaysForYearAndState: function (year, state) {
             state = state.replace('DE-', '');
-        }
-        
-        var allholidays=holiday.getHolidays(new Date(year,0,1))
-        var holidays=[];
-        
-        for (var i = 0; i < allholidays.length; i++) {
-            if (new Date(allholidays[i].date).getFullYear() == year && allholidays[i].states.indexOf(state) >= 0){
-                holidays.push({date:allholidays[i].date,name:allholidays[i].name});
+
+            var holidayDefinitions = holidayDefinitionsForYear(year);
+            var holidays = [];
+
+            for (var i = 0; i < holidayDefinitions.length; i++) {
+                if (new Date(holidayDefinitions[i].date).getFullYear() == year && holidayDefinitions[i].states.indexOf(state) >= 0) {
+                    holidays.push({
+                        name: holidayDefinitions[i].name,
+                        date: holidayDefinitions[i].date
+                    });
+                }
             }
+            return holidays;
         }
-        return holidays;
-    }
-    return getHolidays;
+    };
 });
