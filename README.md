@@ -21,16 +21,36 @@ $ bower install angular-german-holidays
 ### Register the angular module
 
 ```js
-angular.module('myApp', ['german-holidays']).controller('home', function (holidayCheck) {
-    console.log(holidayCheck(new Date(2016, 0, 1), 'NW')); // Neujahrstag
+angular.module('myApp', ['german-holidays']).controller('home', function (germanHolidays) {
+    console.log(germanHolidays.holidayNameForDateAndState(new Date(2016, 0, 1), 'NW')); // Neujahrstag
+    console.log(germanHolidays.isHolidayForDateAndState(new Date(2016, 0, 1), 'NW')); // true
+    console.log(germanHolidays.holidaysForYearAndState(2016, 'NW')); // [{name: 'Neujahrstag', date: Fri Jan 01 2016 00:00:00 GMT+0100 (CET)}, {name: 'Karfreitag', date: Fri Mar 25 2016 00:00:00 GMT+0100 (CET)}, ... ]
 });
 ```
 
-Call the ```holidayCheck``` function and pass two arguments.
-* First argument: A JavaScript Date Object.
-* Second argument: The short form of a [german states](#states) as string. If undefined, 'NW' will be used.
+#### holidayNameForDateAndState
 
-`holidayCheck()` returns either the name of the [holiday](#holidays) or false.
+Call the ```holidayNameForDateAndState``` function and pass two arguments.
+* First argument: A JavaScript Date Object (e.g. new Date(2016, 0, 1)).
+* Second argument: The short form of a [german states](#states) as string (e.g. NW).
+
+`holidayNameForDateAndState()` checks if a holiday exists for the date and state returns either the name of the [holiday](#holidays) or null.
+
+#### isHolidayForDateAndState
+
+Call the ```isHolidayForDateAndState``` function and pass two arguments.
+* First argument: A JavaScript Date Object (e.g. new Date(2016, 0, 1)).
+* Second argument: The short form of a [german states](#states) as string (e.g. NW).
+
+`isHolidayForDateAndState()` checks if a holiday exists for the date and state and returns either true or false.
+
+#### holidaysForYearAndState
+
+Call the ```holidaysForYearAndState``` function and pass two arguments.
+* First argument: A JavaScript Date Object (e.g. new Date(2016, 0, 1)).
+* Second argument: The short form of a [german states](#states) as string (e.g. NW).
+
+`holidaysForYearAndState()` returns an array of all holidays as objects with name- and date attributes for the year and state.
 
 ## Holidays 
 
