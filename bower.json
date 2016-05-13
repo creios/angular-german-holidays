@@ -1,7 +1,8 @@
 {
   "name": "angular-german-holidays",
   "authors": [
-    "Jonas Schürmann <schuermann@creios.net>"
+    "Jonas Schürmann <schuermann@creios.net>",
+    "Tim Tegeler <tegeler@creios.net>"
   ],
   "description": "",
   "main": "src/german-holidays.js",

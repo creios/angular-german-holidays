@@ -1,7 +1,10 @@
 {
-  "version": "2.0.0",
+  "version": "3.0.0",
   "name": "angular-german-holidays",
-  "repository": "https://github.com/creios/angular-german-holidays",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/creios/angular-german-holidays"
+  },
   "license": "MIT",
   "devDependencies": {
     "bower": "^1.3.1",
